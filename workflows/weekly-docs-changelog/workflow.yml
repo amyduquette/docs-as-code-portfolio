@@ -1,0 +1,61 @@
+name: Docs weekly changelog
+
+# GitHub cron is UTC and ignores daylight saving, so both candidate hours fire
+# and a local-time gate lets only the correct one through.
+on:
+  schedule:
+    - cron: '10 14 * * 5'
+    - cron: '10 15 * * 5'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Print the post instead of sending it to Slack
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: docs-weekly-changelog
+  cancel-in-progress: false
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Gate scheduled runs to 10 AM Eastern
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run. Skipping the time gate."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          hour=$(TZ=America/New_York date +%H)
+          if [ "$hour" = "10" ]; then
+            echo "Local hour is $hour. Proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Local hour is $hour, not 10. This is the off-season trigger; exiting."
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.gate.outputs.proceed == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build and post the weekly reader update
+        if: steps.gate.outputs.proceed == 'true'
+        env:
+          DOCS_AUTOMATION_GITHUB_TOKEN: ${{ github.token }}
+          DOCS_AUTOMATION_API_KEY: ${{ secrets.DOCS_AUTOMATION_API_KEY }}
+          DOCS_AUTOMATION_API_URL: ${{ vars.DOCS_AUTOMATION_API_URL }}
+          DOCS_AUTOMATION_MODEL: ${{ vars.DOCS_AUTOMATION_MODEL }}
+          SLACK_WEBHOOK_DOCS: ${{ secrets.SLACK_WEBHOOK_DOCS }}
+          # Scheduled runs post. Manual runs default to a dry run.
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: node workflows/weekly-docs-changelog/weekly-docs-changelog.mjs

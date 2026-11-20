@@ -1,0 +1,28 @@
+# Work sample. This file is not active from this folder.
+name: Check internal-reference tooling
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workflows/link-checker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: workflows/link-checker/package-lock.json
+      - run: npm ci --ignore-scripts
+      - name: Test reference checks against isolated fixtures
+        run: npm test

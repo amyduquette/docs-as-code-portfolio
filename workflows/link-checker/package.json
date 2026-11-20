@@ -1,0 +1,14 @@
+{
+  "name": "documentation-link-checker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Checks internal references in Mintlify documentation.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test check-internal-xrefs.test.mjs",
+    "check:xrefs": "node check-internal-xrefs.mjs"
+  }
+}

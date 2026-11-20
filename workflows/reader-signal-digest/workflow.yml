@@ -1,0 +1,44 @@
+name: Docs reader-signal digest
+
+on:
+  schedule:
+    - cron: '10 2 * * 1'
+      timezone: 'America/New_York'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Print the digest instead of sending it to Slack
+        required: false
+        default: true
+        type: boolean
+      project_id:
+        description: Optional override for the MINTLIFY_PROJECT_ID repository variable
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-reader-signal-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build and post the reader-signal digest
+        env:
+          MINTLIFY_API_KEY: ${{ secrets.MINTLIFY_API_KEY }}
+          MINTLIFY_PROJECT_ID: ${{ inputs.project_id || vars.MINTLIFY_PROJECT_ID }}
+          DOCS_AUTOMATION_API_KEY: ${{ secrets.DOCS_AUTOMATION_API_KEY }}
+          DOCS_AUTOMATION_API_URL: ${{ vars.DOCS_AUTOMATION_API_URL }}
+          DOCS_AUTOMATION_MODEL: ${{ vars.DOCS_AUTOMATION_MODEL }}
+          SLACK_WEBHOOK_DOCS: ${{ secrets.SLACK_WEBHOOK_DOCS }}
+          # Scheduled runs post. Manual runs default to a dry run.
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: node workflows/reader-signal-digest/reader-signal-digest.mjs
