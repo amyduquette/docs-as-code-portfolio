@@ -5,6 +5,8 @@ description: Update documentation for a published CLI release by verifying relea
 
 # Update documentation for a CLI release
 
+Repository names, page paths, issue identifiers, and command names in this skill are fictional examples. Map them to the target product and documentation repositories before using the workflow.
+
 Treat the public `example-org/example-cli` release and changelog as the release signal, not the complete product contract. Verify behavior against the matching `cli/v<version>` tag in `example-org/application-source`. This sample uses `cli/v<version>` in the source repository and `v<version>` in the public repository. Confirm the actual tag mapping before applying the workflow. Treat the public repository's `README.md` as a release-affected user entry point to review, not as product evidence.
 
 Read [Documentation agent instructions](../../docs-standards/AGENT_INSTRUCTIONS.md) and apply the [writing standards](../../docs-standards/STYLE_GUIDE.md) before drafting. Use [documentation validation](../../docs-standards/DOCS_VALIDATION.md) at handoff instead of defining separate checks here.

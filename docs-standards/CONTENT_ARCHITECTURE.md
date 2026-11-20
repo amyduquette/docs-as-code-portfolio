@@ -1,6 +1,6 @@
 # Product docs content architecture
 
-Use this file as the source of truth for information architecture, page types, naming, and content structure decisions in the product documentation.
+This anonymized work sample shows the information architecture, page types, naming conventions, and content structure I established for a product documentation site.
 
 Use `STYLE_GUIDE.md` for prose, terminology, and formatting rules.
 
@@ -45,34 +45,9 @@ The Documentation tab uses user-goal-based groups. Use **Use the product** for s
 
 Store work-in-progress pages in `_drafts/`. This folder is excluded from Mintlify's search and processing via `.mintignore`. Do not add `_drafts/` pages to `docs.json`.
 
-To publish a page without showing it in the navigation, for example, a page linked directly from another page or from the product, add it to `docs.json` and set `hidden: true` in its frontmatter. Pages with `hidden: true` are included in the site build and in `mint export` output but do not appear in the sidebar.
+To publish a page without showing it in the navigation, for example, a page linked directly from another page or from the product, add it to `docs.json` and set `hidden: true` in its frontmatter. Hidden pages are included in the site build but do not appear in the sidebar.
 
 Do not add temporary release-branch, cherry-pick, or propagation status to end-user pages. Keep each branch accurate for the behavior available there, and track temporary rollout state in the pull request or work tracker.
-
-### Hosted-only pages
-
-Keep pages in the hosted site but remove them from packaged docs only when a distribution constraint requires it. The packaged-docs staging transform removes configured hosted-only routes, their exclusive assets, and entry links. It fails if another packaged page still references one. `resources/demos` is hosted-only because its videos require external network access.
-
-Do not use `hidden: true` for this purpose. Hidden pages remain part of `mint export`. See `docs-standards/DOCS_OPERATIONS.md` for the packaged export owner and implementation location.
-
-### Machine-readable docs artifacts
-
-The docs site includes a custom Mintlify skill file at `skill.md`. Mintlify exposes this file through `/skill.md` and through the `/.well-known/skills/` and `/.well-known/agent-skills/` discovery endpoints so agents can understand product capabilities, workflows, inputs, and constraints.
-
-The skill file is not a documentation page. Do not add it to `docs.json`, navigation, redirects, or page-type planning. Treat it as a source-controlled artifact that summarizes the canonical docs for agents.
-
-The docs repo owns the canonical product skill. When the docs are packaged with the product, the docs build should copy `skill.md` into the exported static docs output as `skill.md` for static discovery and reference. Mintlify dynamic routes such as `/mcp`, `/llms.txt`, and `/.well-known/` discovery endpoints are not emitted as static files by `mint export`; do not document them as available in packaged on-premises docs unless the build or product explicitly implements them.
-
-The product may also include a small bundled bootstrap skill in `example-org/application-source` so its agents can find the current docs. Do not mirror this full `skill.md` file into the application repository. Keep the bootstrap skill stable and update it only when docs access paths or bootstrap behavior change.
-
-Update the skill file when a docs change affects any of the following:
-
-- Navigation structure or canonical page locations
-- Product workflows that agents should recommend
-- Commands, settings keys, permission behavior, or safety constraints
-- Product terminology or supported surfaces
-
-Do not introduce product behavior in the skill file that is not documented elsewhere. If the skill file and public docs disagree, update the canonical docs first or flag the contradiction for technical writer review.
 
 ## Use clear content types
 
@@ -216,7 +191,7 @@ Only include a section when you have content for it. Do not fill in placeholder 
 | Troubleshooting | There are known failure modes with specific causes and fixes |
 | Related resources | There are genuinely related pages worth linking to |
 
-When information is missing, insert a `TODO` rather than writing a vague placeholder. See `AGENTS.md` for the `TODO` format.
+When information is missing, insert a specific inline comment such as `{/* TODO: confirm whether X requires Y */}` rather than writing a vague placeholder.
 
 ## Procedure sections within feature pages
 
@@ -353,7 +328,7 @@ Match the file name to the title and content type.
 |---------|---------|-------------|
 | Noun + "reference" | `permissions-reference.mdx` | Comprehensive lookup |
 | "Supported [noun]" | `supported-models.mdx` | Lists of available items |
-| Short noun | `pool.mdx`, `models.mdx` | A page with a clear, established product name |
+| Short noun | `cli.mdx`, `models.mdx` | A page with a clear, established product name |
 
 ## Authoring checklist
 

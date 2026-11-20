@@ -1,6 +1,6 @@
 # Product docs style guide
 
-Use this file as the source of truth for writing, terminology, and formatting decisions in the product documentation.
+This anonymized work sample shows the writing, terminology, and formatting standards I maintained for a product documentation program.
 
 Apply these rules to documentation work unless a page explicitly opts out.
 
@@ -12,11 +12,11 @@ Use this guide for decisions about:
 - Terminology and branding
 - Headings, links, lists, code formatting, and UI elements
 - File conventions
-- Vale-aligned writing rules
+- Vale-aligned writing rules for documentation pages, agent skills, and repository guidance
 
 Use `CONTENT_ARCHITECTURE.md` for page types, navigation decisions, and page templates.
 
-These prose rules (voice, em dashes, filler words, and so on) apply to every file an agent writes in this repo, including `.agents/skills/*.md`, `AGENTS.md`, and `skill.md`, not only reader-facing `.mdx` pages. The Vale exemption those files get (`.valeignore`, `.vale.ini`) covers vocabulary and terminology false positives from intentionally naming disallowed terms; it is not a license to ignore the style rules when writing new prose there.
+These prose rules apply to reader-facing documentation, agent skills, standards, and repository guidance. When a project uses Vale, exclusions for vocabulary or terminology false positives do not exempt a file from the broader expectations for clear and accurate prose.
 
 ## Voice and tone
 
@@ -28,7 +28,7 @@ The documentation follows the Google developer documentation style guide as a ba
 - Write for the user, not the product. Describe what users can do, expect, and achieve, not what features do internally. This applies to actions and to behavioral descriptions.
   - Product-focused (avoid): "This feature allows data export."
   - User-focused (preferred): "Export your data."
-  - Product-focused (avoid): "Example Platform mounts your workspace into the sandbox."
+  - Product-focused (avoid): "The application mounts your workspace into the sandbox."
   - User-focused (preferred): "Your project files stay on your host, even when the agent runs in a sandbox."
 - Avoid internal implementation terms such as `system prompt` unless the page is explicitly about internals or troubleshooting.
 - Keep the tone direct, concise, and professional.
@@ -48,8 +48,7 @@ Always use the correct capitalization for product names.
 |-----|-----|
 | Example Platform | <code>example platform</code>, Example Platform AI |
 | Example Platform Console | `Console`, `Admin Console`, <code>example platform console</code> |
-| Example Platform Enterprise Assistant | <code>example platform enterprise assistant</code>  |
-| Example Platform Chat | <code>example platform chat</code>  |
+| Example Agent CLI | <code>example agent cli</code>, Example CLI |
 | VS Code | `VSCode`, `vscode` |
 
 ### Preferred terminology
@@ -58,11 +57,8 @@ Use the most specific term available.
 
 | Concept | Use | Avoid |
 |---------|-----|-------|
-| `settings.yaml` approvals | Tool permissions | Permissions |
+| Approval settings | Tool permissions | Permissions |
 | Referring to AI interaction | with the model | with the AI |
-| Named model families | models | LLMs |
-| Product relationship with a customer | deployment | instance |
-| One running copy of the product on a deployment | instance | deployment |
 | IDE chat area | chat panel | chat window, chat interface, chat input |
 | Overlay UI elements such as modals and slide-in panels | dialog | modal, drawer, pane, panel |
 | IDE input area | prompt input box | chat input field |
@@ -72,8 +68,6 @@ Use the most specific term available.
 Do not use:
 
 - `frontier models` or `foundational models`; use `foundation models`
-- `Example Platform Installer`; use `the installer`
-- `enhanced context`; it is deprecated, use the specific context feature name
 - `code generation`; describe the specific capability instead (for example, "write code" or "generate a function")
 - bare `using` when `by using` or `that uses` is clearer
 
@@ -123,8 +117,8 @@ Always capitalize these terms where appropriate: `API`, `CLI`, `GPU`, `JSON`, `L
 
 - Leave a blank line before and after a list when it sits between paragraphs.
 - Keep list items parallel when possible.
-- Use a colon after a label in a list, not an em dash: `- **Label**: Description`, not `- **Label** — Description`. This applies to both bulleted and numbered lists. Capitalize the first word after the colon.
-- To indicate that a list item requires an admin role, add `(requires the \`tenant-admin\` role)` at the end of the item: `- Set or change the URL of your API server (requires the \`tenant-admin\` role)`.
+- Use a colon after a label in a list: `- **Label**: Description`. Do not separate the label and description with a dash. Capitalize the first word after the colon.
+- To indicate that a list item requires an admin role, add the requirement at the end of the item: `- Set or change the API server URL (requires the \`organization-admin\` role)`.
 
 ## Tables
 
@@ -136,12 +130,12 @@ Always capitalize these terms where appropriate: `API`, `CLI`, `GPU`, `JSON`, `L
 - Bold labeled UI elements.
 - If an element is not labeled in the UI, refer to it by a generic description and do not use bold text.
 - Match the product UI labels exactly.
-- Preserve exact UI labels, command names, setting names, and well-known file type names even if a generic style or Vale rule suggests different wording. For example, preserve exact labels such as **Execute commands without asking**.
+- Preserve exact UI labels, command names, setting names, and well-known file type names even when a general Vale rule suggests different wording.
 - Format navigation paths in bold with a greater-than sign, for example **View > Command Palette**.
 - Format user-entered text in backticks.
 - Format command identifiers and field labels in backticks only when they are literal command names or field names.
 - For checkboxes, use **select** to turn on and **clear** to turn off. Do not use `check`, `uncheck`, or `tick`.
-- Format error messages in code font: `Failed to retrieve login options for this email`.
+- Format error messages in code font: `Unable to save changes`.
 - Treat frontmatter status tags such as `BETA` as metadata, not reader-facing prose.
 
 ### Acronyms and abbreviations
@@ -156,21 +150,21 @@ Always capitalize these terms where appropriate: `API`, `CLI`, `GPU`, `JSON`, `L
 
 Permissions and roles appear in the UI as labeled checkboxes and selectable items. Format them differently depending on context:
 
-- When describing the UI action of enabling a permission, use bold: "Select **Auto Approve Commands**."
-- When referring to having or requiring a permission, use backticks: "If you have the `Auto Approve Commands` permission, you can skip manual approval for matching tools."
-- When referring to having or requiring a role, use backticks: "You belong to a team with the `tenant-admin` role."
+- When describing the UI action of enabling a permission, use bold: "Select **Allow command execution**."
+- When referring to having or requiring a permission, use backticks: "If you have the `Allow command execution` permission, you can skip manual approval for matching tools."
+- When referring to having or requiring a role, use backticks: "You belong to a team with the `organization-admin` role."
 
 Examples:
 
 - Click **Command Palette**.
 - Enter `<branch-name>` in the prompt box.
 - To restore a previous version of a file, click **Restore** next to the version number in the chat panel.
-- Select **Auto Approve Commands** to allow agents to run commands without asking for approval.
-- If you have the `Auto Approve Commands` permission, you can skip manual approval for matching tools.
-- You have the `Create Agent` permission.
-- You belong to a team with the `tenant-admin` role.
-- Click the ellipsis (**…**) in the row for the role you want to edit and select **Edit Role**.
-- In the user's row, click the <Icon icon="pencil-line" iconType="solid" /> Edit icon.
+- Select **Allow command execution** to let agents run commands without asking for approval.
+- If you have the `Allow command execution` permission, you can skip manual approval for matching tools.
+- You have the `Create agent` permission.
+- You belong to a team with the `organization-admin` role.
+- Click the more-options icon (**...**) in the row for the role you want to edit, and then select **Edit role**.
+- In the user's row, click **Edit**.
 - Use "the search field" for an unlabeled field, not "the **Search** field."
 
 ## Code and commands
@@ -179,13 +173,13 @@ Examples:
 
 - Always add a language identifier to fenced code blocks.
 - Use copy-pasteable examples.
-- Use Mintlify code block titles when a title helps users distinguish syntax, examples, variants, or command purpose.
+- Add a code block title when it helps users distinguish syntax, examples, variants, or command purpose.
 
   Correct:
 
   ````markdown
   ```bash title="Example: Start an interactive session"
-  pool -C <project-path>
+  example-cli --directory <project-path>
   ```
   ````
 
@@ -274,10 +268,10 @@ When documenting user-provided values, use these standard placeholders consisten
 | Placeholder | Use for |
 |-------------|---------|
 | `<product-hostname>` | Generic product deployment hostname when the page does not need to distinguish web and API hosts |
-| `<web-hostname>` | Product web hostname, such as the `webHost` value in deployment configuration |
-| `<api-hostname>` | Product API hostname, such as the `apiHost` value in deployment configuration |
+| `<web-hostname>` | Product web application hostname |
+| `<api-hostname>` | Product API service hostname |
 | `<api-domain>` | Customer-facing API domain or hostname |
-| `<tenant-id>` | Tenant or organization identifier |
+| `<organization-id>` | Organization identifier |
 | `<namespace>` | Kubernetes namespace |
 | `<branch-name>` | Git branch name |
 | `<api-key>` | Authentication token or API key |
@@ -288,7 +282,6 @@ Do not use generic placeholders such as `<hostname>` or `<domain>` without quali
 
 - Documentation files use `.mdx` and live at the repo root.
 - Use lowercase hyphenated file names.
-- Do not apply style rules to `/legal` or `/support` if those paths have style checks disabled.
 
 ## Writing checklist
 

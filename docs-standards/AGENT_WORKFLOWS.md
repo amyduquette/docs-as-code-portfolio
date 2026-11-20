@@ -1,6 +1,6 @@
 # Documentation agent workflows
 
-This file owns editorial review: how to judge whether a page is written for the reader and whether it is any good. It is the rubric for both a human asking an agent to review a draft and any automated reviewer running on a pull request, so both judge by the same standard.
+This file defines the editorial review rubric I used for human and agent-assisted reviews. It focuses on whether a page works for its reader, not just whether it passes mechanical checks.
 
 Two things live elsewhere and are not repeated here. `docs-standards/DOCS_VALIDATION.md` owns the mechanical checks, their commands, and what CI covers. `docs-standards/STYLE_GUIDE.md` and `docs-standards/CONTENT_ARCHITECTURE.md` own voice, terminology, formatting, page types, and navigation.
 
@@ -51,7 +51,6 @@ Judge every page against these. They are also what counts as a real finding when
 - **Terminology**: Does it match `STYLE_GUIDE.md`, and is it internally consistent?
 - **Structure and style**: Sentence-case headings, descriptive links, language identifiers on code blocks, and the reader-facing structure `STYLE_GUIDE.md` defines. Losing a useful reader aid is a finding.
 - **Grammar and mechanics**: Broken lists, malformed sentences, missing punctuation.
-- **Agent-facing artifacts**: If the change affects navigation, workflows, commands, settings, permissions, terminology, or supported product surfaces, does `skill.md` need an update? See `CONTENT_ARCHITECTURE.md` for skill maintenance rules.
 - **Docs operations**: If the change alters how docs operations work, including repo-local workflow guidance, skills, automations, or recurring loops, does `DOCS_OPERATIONS.md` need an update?
 
 ## Judgment calls
@@ -89,4 +88,4 @@ After a final review, close out by summarizing what the writer needs to act on:
 - Priority or roadmap questions affecting docs coverage or sequencing
 - Unverified claims that need source review
 
-Also flag anything learned that should update `AGENTS.md` or `docs-standards/`, such as a new pattern, a terminology decision, or a reusable convention.
+Also flag anything learned that should update `AGENT_INSTRUCTIONS.md` or another standards file, such as a new pattern, a terminology decision, or a reusable convention.

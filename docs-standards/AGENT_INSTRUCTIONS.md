@@ -1,8 +1,8 @@
 # Documentation agent instructions
 
-Work sample adapted from the AGENTS.md used in a product documentation repository. Names and paths are examples.
+This is an anonymized work sample from a product documentation repository. Names and paths are examples.
 
-Use this file as the default operating guidance for documentation agents working in this repository.
+This file served as the default operating guidance for documentation agents in the original product documentation repository.
 
 Draft, edit, and review documentation so it stays accurate, clear, and consistent with the repository standards.
 
@@ -37,15 +37,11 @@ Consult these files before substantial docs work:
 - [Content architecture](CONTENT_ARCHITECTURE.md) for page types, naming, structure, and navigation decisions
 - [Agent workflows](AGENT_WORKFLOWS.md) for drafting and the editorial review rubric
 - [Documentation validation](DOCS_VALIDATION.md) for mechanical checks, their commands, and what CI covers
-- [Documentation operations](DOCS_OPERATIONS.md) for docs automations, planning loops, workflow ownership, and planned operational improvements
+- [Documentation operations](DOCS_OPERATIONS.md) for docs automations, workflow ownership, and recurring documentation operations
 
 If [Content architecture](CONTENT_ARCHITECTURE.md) conflicts with the current shipped navigation in `docs.json`, treat `docs.json` as the current implementation. Flag the standards drift to the human technical writer instead of silently restructuring navigation or page groups from stale guidance.
 
 When you change `docs.json` navigation, update [Content architecture](CONTENT_ARCHITECTURE.md) only when the change establishes a reusable navigation pattern or makes existing guidance inaccurate.
-
-If the target project publishes a root-level `skill.md` for agents, review it when docs changes affect how agents should guide users. Keep it aligned with current docs structure, workflows, terminology, and constraints. It summarizes canonical docs; it is not an independent source of product truth.
-
-When changing CLI docs, also consider the product-reference skill bundled with the CLI, if the project has one. In this example, it lives at `resources/bundled-skills/cli-product-reference/SKILL.md` in `example-org/application-source` and routes agent questions to hosted CLI documentation. If you move, rename, split, merge, or materially change a canonical page's topic coverage, check whether that routing map needs an update. Ordinary wording fixes do not require one. For release work, follow the [CLI release skill](../agent-skills/cli-release/SKILL.md), which separately requires reviewing the bundled guidance at the release tag.
 
 ## Repositories
 
@@ -93,9 +89,9 @@ These conventions describe the example documentation site. Check the target proj
 
 ## Pull request workflow
 
-Follow the target project's branch, pull request, and merge conventions. Consult [Workflow notes](../workflows/README.md) for which documentation workflows are configured; do not infer that a workflow is running from the presence of instructions alone.
+Follow the target project's branch, pull request, and merge conventions. Consult [Workflow notes](../workflows/README.md) for the workflow samples represented in this portfolio. Do not infer that a workflow is active from the presence of instructions alone.
 
-Keep canonical skills in `.agents/skills/`. Compatibility paths for other agent tools should point to the same files rather than maintaining separate copies. Apply the prose rules in `STYLE_GUIDE.md` to skill files even when they are exempt from terminology checks.
+Keep one canonical copy of each skill. Compatibility paths for other agent tools should point to the same files rather than maintaining separate copies. Apply the prose rules in `STYLE_GUIDE.md` to skill files even when they are exempt from terminology checks.
 
 ## Draft and create
 
@@ -104,11 +100,10 @@ Before writing:
 1. Read [Style guide](STYLE_GUIDE.md) for voice, terminology, and formatting.
 2. Read [Content architecture](CONTENT_ARCHITECTURE.md) for page type, structure, and navigation requirements.
 3. Use the [writing skill](../agent-skills/writing-docs/SKILL.md).
-4. If an examples skill is available (`docs-examples`), use it to see what a finished page looks like.
-5. Read any existing pages closely related to what you are writing.
-6. Think about what the user landing on this page is actually trying to accomplish. What problem brought them here? What does a successful outcome look like for them? Where might they get stuck or give up? Use this to check whether the proposed content actually serves that journey, not just whether it covers the feature.
-7. For setup, onboarding, and integration content, define what a successful first integration looks like and check whether the page gets the reader there.
-8. Identify terminology that appears unstable, overloaded, or inconsistently used across the product. If you cannot verify the safe term, flag it instead of normalizing it silently.
+4. Read any existing pages closely related to what you are writing.
+5. Think about what the user landing on this page is actually trying to accomplish. What problem brought them here? What does a successful outcome look like for them? Where might they get stuck or give up? Use this to check whether the proposed content actually serves that journey, not just whether it covers the feature.
+6. For setup, onboarding, and integration content, define what a successful first integration looks like and check whether the page gets the reader there.
+7. Identify terminology that appears unstable, overloaded, or inconsistently used across the product. If you cannot verify the safe term, flag it instead of normalizing it silently.
 
 While writing:
 
