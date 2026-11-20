@@ -7,7 +7,7 @@ This repository contains documentation engineering systems I created and maintai
 ## Start here
 
 - [CLI release](agent-skills/cli-release/SKILL.md): Guides an agent through verifying released CLI behavior and updating affected documentation.
-- [Documentation operations](docs-standards/DOCS_OPERATIONS.md): Maps the active and planned systems used to review, validate, and maintain documentation.
+- [Documentation operations](docs-standards/DOCS_OPERATIONS.md): Shows how documentation automations and agent workflows were owned and maintained.
 - [Documentation link checker](workflows/link-checker/README.md): Checks internal routes, anchors, assets, redirects, and navigation.
 
 ## Agent skills
@@ -25,7 +25,7 @@ This repository contains documentation engineering systems I created and maintai
 - [Content architecture](docs-standards/CONTENT_ARCHITECTURE.md): Defines page types, structure, and navigation.
 - [Agent workflows](docs-standards/AGENT_WORKFLOWS.md): Defines drafting and editorial review practices.
 - [Documentation validation](docs-standards/DOCS_VALIDATION.md): Records checks, commands, and CI coverage.
-- [Documentation operations](docs-standards/DOCS_OPERATIONS.md): Maps active and planned documentation systems.
+- [Documentation operations](docs-standards/DOCS_OPERATIONS.md): Documents workflow ownership, triggers, and outputs.
 
 ## Documentation workflows
 
